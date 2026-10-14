@@ -1,0 +1,37 @@
+1.order Confirmation Generator.
+
+
+void main() {
+  int orderId = 101;
+  String customerName = 'Rahul';
+  int numberOfItems = 3;
+  double totalAmount = 650.0;
+
+  int statusCode = 1;
+
+  print('===== ORDER CONFIRMATION =====');
+  print('Order ID: $orderId');
+  print('Customer Name: $customerName');
+  print('Number of Items: $numberOfItems');
+  print('Total Amount: Rs ${totalAmount.toStringAsFixed(2)}');
+
+  if (totalAmount > 500) {
+    print('Delivery Tier: Express Delivery');
+  } else {
+    print('Delivery Tier: Standard Delivery');
+  }
+
+  switch (statusCode) {
+    case 1:
+      print('Order Status: Preparing');
+      break;
+    case 2:
+      print('Order Status: Out for Delivery');
+      break;
+    case 3:
+      print('Order Status: Delivered');
+      break;
+    default:
+      print('Order Status: Unknown');
+  }
+}
