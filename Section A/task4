@@ -1,0 +1,36 @@
+4. How do async, await, and Future work together in Dart to solve this problem? Describe how you would use try-catch to handle the API failure case gracefully, and explain what the app should show the user 
+while the data is being loaded.
+
+Dart uses asynchronous programming to handle operations such as API requests without blocking the main UI thread while waiting for the result.
+
+    Future: Represents a value or error that will become available later.
+    
+    async: Marks a function as asynchronous.
+    
+    await: Waits for a Future's result within an asynchronous function without blocking the UI thread.
+    
+    try-catch: Handles errors such as network failures.
+
+
+import 'dart:async';
+
+Future<String> fetchMenu() async {
+  await Future.delayed(const Duration(seconds: 2));
+  return 'Pizza, Burger, Sandwich';
+}
+
+Future<void> loadMenu() async {
+  try {
+    print('Loading menu...');
+
+    String menu = await fetchMenu();
+
+    print('Menu loaded: $menu');
+  } catch (e) {
+    print('Failed to load menu: $e');
+  }
+}
+
+void main() async {
+  await loadMenu();
+}
