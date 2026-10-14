@@ -1,0 +1,42 @@
+2.Restaurant Menu Manager.
+
+
+class MenuItem {
+  String name;
+  double price;
+  bool isAvailable;
+
+  MenuItem(this.name, this.price, this.isAvailable);
+}
+
+void main() {
+  List<MenuItem> menu = [
+    MenuItem('Pizza', 250.0, true),
+    MenuItem('Burger', 120.0, true),
+    MenuItem('Pasta', 180.0, false),
+    MenuItem('Sandwich', 100.0, true),
+  ];
+
+  print('===== COMPLETE MENU =====');
+
+  for (MenuItem item in menu) {
+    print(
+      '${item.name} - Rs ${item.price} - '
+      '${item.isAvailable ? "Available" : "Not Available"}',
+    );
+  }
+
+  print('\n===== AVAILABLE ITEMS =====');
+
+  for (MenuItem item in menu) {
+    if (item.isAvailable) {
+      print('${item.name}: Rs ${item.price}');
+    }
+  }
+
+  Map<String, double> priceMap = {
+    for (MenuItem item in menu) item.name: item.price,
+  };
+
+  print('\nPizza Price: Rs ${priceMap['Pizza']}');
+}
