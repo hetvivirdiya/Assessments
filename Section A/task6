@@ -1,0 +1,50 @@
+6. Which Flutter layout widgets would you use to structure this card so it looks consistent across screen sizes? Explain how MediaQuery, Expanded, or Flexible can be used to replace fixed pixel dimensions and
+make the card responsive.
+
+Use a combination of Card, Padding, Row, Column, Expanded, Flexible, and MediaQuery.
+
+ 1.   Card: Provides a container for the restaurant information.
+    
+ 2.   Row: Places the image and text horizontally.
+    
+ 3.   Column: Arranges the restaurant name, cuisine, and rating vertically.
+    
+ 4.   Expanded: Allocates remaining horizontal space to the text or content.
+    
+ 5.   Flexible: Lets content use available space without forcing it to occupy all of it.
+    
+ 6.   MediaQuery: Provides screen dimensions and other display information.
+
+
+final screenWidth = MediaQuery.of(context).size.width;
+
+return Card(
+  margin: const EdgeInsets.all(12),
+  child: Padding(
+    padding: const EdgeInsets.all(12),
+    child: Row(
+      children: [
+        SizedBox(
+          width: screenWidth < 400 ? 80 : 120,
+          height: 90,
+          child: const Icon(Icons.restaurant, size: 50),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('QuickBite Restaurant'),
+              const Text('Indian Cuisine'),
+              const Text('Rating: 4.5 ★'),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Order Now'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ),
+);
