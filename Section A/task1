@@ -1,0 +1,20 @@
+1. What case would you make for choosing Flutter over the other two options? Compare Flutter's cross-platform rendering approach to React Native's bridge model and to fully native development, and
+explain which trade-offs matter most for a small team with a tight deadline.
+
+Flutter is a cross-platform framework developed by Google that allows developers to build Android and iOS applications from a single Dart codebase.
+
+-->Flutter: Uses its own widget system and rendering engine to draw the user interface consistently across platforms. This reduces duplicated UI work.
+
+-->React Native: Uses JavaScript or TypeScript and connects its framework to native platform components through its runtime and native interoperability mechanisms. The exact architecture varies by version.
+
+-->Native development: Requires separate platform-specific implementations, typically using Kotlin for Android and Swift for iOS, increasing development time and maintenance.
+
+Why Flutter suits a small startup team:
+    
+  1.  One codebase supports both Android and iOS.
+    
+  2.  Reusable widgets speed up UI development.
+    
+  3.  Hot reload makes testing and UI adjustments faster.
+    
+  4.  Consistent rendering helps maintain a similar appearance across platforms.
