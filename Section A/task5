@@ -1,0 +1,47 @@
+5.Would you use a StatelessWidget or StatefulWidget for this screen? Justify your choice clearly, and explain the exact mechanism by which calling setState() causes Flutter to re-draw only the affected portion 
+of the widget tree.
+
+StatefulWidget: Suitable when the screen's appearance or content changes in response to user actions or asynchronous data.
+StatelessWidget: Suitable when the UI is static and depends only on the constructor parameters or other external data.
+
+How setState() works:
+    1. Updates the state variable inside its callback.
+    2. Marks the associated element as dirty.
+    3. Schedules a rebuild for the next frame.
+    4. Flutter calls build() again and reconciles the new widget tree with the existing element tree.
+    5. Only the necessary layout and painting work is performed.
+
+
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<CounterScreen> createState() => _CounterScreenState();
+}
+
+class _CounterScreenState extends State<CounterScreen> {
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Counter')),
+      body: Column(
+        children: [
+          Text('Count: $counter'),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                counter++;
+              });
+            },
+            child: const Text('Increment'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
