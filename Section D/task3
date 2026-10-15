@@ -1,0 +1,128 @@
+3. Corrected version
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: OrderScreen(),
+  ));
+}
+
+class FoodItem {
+  final String name;
+  final int quantity;
+  final double price;
+
+  FoodItem(this.name, this.quantity, this.price);
+}
+
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({super.key});
+
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
+  final List<FoodItem> items = [
+    FoodItem('Pizza', 2, 200.0),
+    FoodItem('Burger', 1, 120.0),
+    FoodItem('Sandwich', 2, 80.0),
+  ];
+
+  String orderStatus = 'Order Pending';
+
+  double get totalAmount => items.fold(
+        0.0,
+        (total, item) => total + item.quantity * item.price,
+      );
+
+  void placeOrder() {
+    if (items.isEmpty) {
+      setState(() {
+        orderStatus = 'Add items before placing an order';
+      });
+      return;
+    }
+
+    setState(() {
+      orderStatus = 'Order Placed ›';
+    });
+  }
+
+  void removeItem(int index) {
+    setState(() {
+      items.removeAt(index);
+      orderStatus = 'Order Pending';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Food Order')),
+      body: Column(
+        children: [
+          Expanded(
+            child: items.isEmpty
+                ? const Center(
+                    child: Text(
+                      'Your cart is empty',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+
+                      return ListTile(
+                        title: Text(item.name),
+                        subtitle: Text(
+                          'Quantity: ${item.quantity} | '
+                          'Unit Price: Rs. ${item.price.toStringAsFixed(2)}',
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Rs. ${(item.quantity * item.price).toStringAsFixed(2)}',
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => removeItem(index),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text(
+                  'Total Amount: Rs. ${totalAmount.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(orderStatus),
+                const SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: items.isEmpty ? null : placeOrder,
+                  child: const Text('Place Order'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
