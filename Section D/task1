@@ -1,0 +1,5 @@
+1. Exact prompt given to AI
+
+Write a complete Flutter screen in Dart using a StatefulWidget. Display a list of food items using ListView.builder, showing each item's name, quantity, 
+and unit price. Calculate and display the total order amount dynamically. Add a Place Order button that uses setState() to update a Text widget to "Order Placed ›"
+when tapped. If the item list is empty, display "Your cart is empty" centred on the screen. Provide the complete runnable code.
