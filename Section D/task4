@@ -1,0 +1,6 @@
+4. Testing and debugging note
+
+The original code allowed the user to place an order even when the cart was empty. 
+I improved it by adding a validation check before placing an order and disabling the button when no items are available. 
+I also added a delete button to remove items and test the empty-cart message. 
+The total amount updates dynamically whenever an item is removed.
