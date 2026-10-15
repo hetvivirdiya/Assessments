@@ -1,0 +1,91 @@
+2. AI's original code
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: OrderScreen(),
+  ));
+}
+
+class FoodItem {
+  final String name;
+  final int quantity;
+  final double price;
+
+  FoodItem(this.name, this.quantity, this.price);
+}
+
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({super.key});
+
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
+  List<FoodItem> items = [
+    FoodItem('Pizza', 2, 200.0),
+    FoodItem('Burger', 1, 120.0),
+    FoodItem('Sandwich', 2, 80.0),
+  ];
+
+  String orderStatus = 'Order Pending';
+
+  double get totalAmount {
+    double total = 0;
+    for (var item in items) {
+      total += item.quantity * item.price;
+    }
+    return total;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Food Order')),
+      body: Column(
+        children: [
+          Expanded(
+            child: items.isEmpty
+                ? const Center(child: Text('Your cart is empty'))
+                : ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+                      return ListTile(
+                        title: Text(item.name),
+                        subtitle: Text(
+                          'Quantity: ${item.quantity} | '
+                          'Price: Rs. ${item.price}',
+                        ),
+                        trailing: Text(
+                          'Rs. ${item.quantity * item.price}',
+                        ),
+                      );
+                    },
+                  ),
+          ),
+          Text(
+            'Total Amount: Rs. ${totalAmount.toStringAsFixed(2)}',
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(orderStatus),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                orderStatus = 'Order Placed ›';
+              });
+            },
+            child: const Text('Place Order'),
+          ),
+        ],
+      ),
+    );
+  }
+}
